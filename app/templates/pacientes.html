@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Lista de Pacientes</h2>
+
+<form action="{{ url_for('main.nuevo_paciente') }}" method="post">
+    <input type="text" name="nombre" placeholder="Nombre" required>
+    <input type="text" name="apellido" placeholder="Apellido" required>
+    <input type="text" name="dni" placeholder="DNI" required>
+    <input type="date" name="fecha_nacimiento">
+    <input type="text" name="telefono" placeholder="Teléfono">
+    <input type="email" name="correo" placeholder="Correo">
+    <button type="submit">Agregar Paciente</button>
+</form>
+
+<ul>
+    {% for paciente in pacientes %}
+        <li>{{ paciente['nombre'] }} {{ paciente['apellido'] }} — DNI: {{ paciente['dni'] }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

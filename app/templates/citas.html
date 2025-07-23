@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Gestión de Citas</h2>
+
+<form action="{{ url_for('main.nueva_cita') }}" method="post">
+    <label>Paciente:</label>
+    <select name="paciente_id" required>
+        <option value="">Seleccione un paciente</option>
+        {% for p in pacientes %}
+        <option value="{{ p.id }}">{{ p.nombre }} {{ p.apellido }}</option>
+        {% endfor %}
+    </select>
+    <label>Fecha:</label>
+    <input type="date" name="fecha" required>
+    <label>Hora:</label>
+    <input type="time" name="hora" required>
+    <label>Motivo:</label>
+    <input type="text" name="motivo" placeholder="Motivo de la cita">
+    <button type="submit">Agregar Cita</button>
+</form>
+
+<hr>
+
+<h3>Listado de Citas</h3>
+<ul>
+    {% for cita in citas %}
+        <li>
+            {{ cita['fecha'] }} {{ cita['hora'] }} —
+            {{ cita['nombre'] }} {{ cita['apellido'] }} —
+            {{ cita['motivo'] }}
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

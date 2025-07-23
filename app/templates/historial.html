@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Historial de {{ paciente[1] }} {{ paciente[2] }}</h2>
+
+  <form method="POST" action="{{ url_for('main.nuevo_historial', paciente_id=paciente[0]) }}">
+    <label for="fecha">Fecha:</label>
+    <input type="date" name="fecha" required>
+    <br>
+    <label for="descripcion">Descripción:</label>
+    <textarea name="descripcion" required></textarea>
+    <br>
+    <button type="submit">Agregar al Historial</button>
+  </form>
+
+  <hr>
+
+  <ul>
+    {% for entrada in historial %}
+      <li><strong>{{ entrada[0] }}:</strong> {{ entrada[1] }}</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{{ url_for('main.lista_pacientes') }}">← Volver a Pacientes</a>
+{% endblock %}
