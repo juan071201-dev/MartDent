@@ -1,0 +1,90 @@
+<div class="modal fade" id="pacienteModal" tabindex="-1" aria-labelledby="pacienteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <form method="POST" 
+              action="{% if paciente %}{{ url_for('main.editar_paciente', paciente_id=paciente.id) }}{% else %}{{ url_for('main.nuevo_paciente') }}{% endif %}">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="pacienteModalLabel">
+                        {% if paciente %}Editar Paciente{% else %}Nuevo Paciente{% endif %}
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label">Tipo Documento</label>
+                        <input type="text" name="tipo_documento" class="form-control" 
+                               value="{{ paciente.tipo_documento if paciente else '' }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Nro. Documento</label>
+                        <input type="text" name="nro_documento" class="form-control" 
+                               value="{{ paciente.nro_documento if paciente else '' }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Sexo</label>
+                        <select name="sexo" class="form-select" required>
+                            <option value="M" {% if paciente and paciente.sexo == 'M' %}selected{% endif %}>Masculino</option>
+                            <option value="F" {% if paciente and paciente.sexo == 'F' %}selected{% endif %}>Femenino</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Apellido Paterno</label>
+                        <input type="text" name="apellido_paterno" class="form-control" 
+                               value="{{ paciente.apellido_paterno if paciente else '' }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Apellido Materno</label>
+                        <input type="text" name="apellido_materno" class="form-control" 
+                               value="{{ paciente.apellido_materno if paciente else '' }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Nombres</label>
+                        <input type="text" name="nombres" class="form-control" 
+                               value="{{ paciente.nombres if paciente else '' }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Fecha Nacimiento</label>
+                        <input type="date" name="fecha_nacimiento" class="form-control" 
+                               value="{{ paciente.fecha_nacimiento if paciente else '' }}" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Celular</label>
+                        <input type="text" name="celular" class="form-control" 
+                               value="{{ paciente.celular if paciente else '' }}">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label">Departamento</label>
+                        <input type="text" name="departamento" class="form-control" 
+                               value="{{ paciente.departamento if paciente else '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Dirección</label>
+                        <input type="text" name="direccion" class="form-control" 
+                               value="{{ paciente.direccion if paciente else '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Acompañante</label>
+                        <input type="text" name="acompaniante" class="form-control" 
+                               value="{{ paciente.acompaniante if paciente else '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Alergias</label>
+                        <input type="text" name="alergias" class="form-control" 
+                               value="{{ paciente.alergias if paciente else '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Enfermedades</label>
+                        <input type="text" name="enfermedades" class="form-control" 
+                               value="{{ paciente.enfermedades if paciente else '' }}">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success">
+                        {% if paciente %}Guardar Cambios{% else %}Guardar{% endif %}
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
