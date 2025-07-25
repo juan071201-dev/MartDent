@@ -4,18 +4,30 @@ def crear_base_datos():
     conn = sqlite3.connect('martdent.db')
     cur = conn.cursor()
 
+    # Borrar tabla anterior si existe
+    cur.execute("DROP TABLE IF EXISTS pacientes")
+
+    # Crear nueva tabla de pacientes
     cur.execute('''
     CREATE TABLE IF NOT EXISTS pacientes (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nombre TEXT NOT NULL,
-        apellido TEXT NOT NULL,
-        dni TEXT UNIQUE NOT NULL,
+        tipo_documento TEXT,
+        nro_documento TEXT UNIQUE,
+        sexo TEXT,
+        apellido_paterno TEXT,
+        apellido_materno TEXT,
+        nombres TEXT,
         fecha_nacimiento TEXT,
-        telefono TEXT,
-        correo TEXT
+        celular TEXT,
+        departamento TEXT,
+        direccion TEXT,
+        acompaniante TEXT,
+        alergias TEXT,
+        enfermedades TEXT
     )
     ''')
-    
+
+    # Crear otras tablas si no existen
     cur.execute('''
     CREATE TABLE IF NOT EXISTS citas (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,11 +66,9 @@ def crear_base_datos():
     )
     ''')
 
-    # Usuario por defecto (solo si no existe)
     cur.execute("SELECT * FROM usuarios WHERE username = 'admin'")
     if not cur.fetchone():
         cur.execute("INSERT INTO usuarios (username, password) VALUES (?, ?)", ('admin', 'admin123'))
-
 
     conn.commit()
     conn.close()
